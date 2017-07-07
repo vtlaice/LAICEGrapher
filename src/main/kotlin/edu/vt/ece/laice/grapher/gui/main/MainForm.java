@@ -19,18 +19,19 @@ public class MainForm {
     JPanel presetsViewport;
     JPanel controlsViewport;
     JPanel mainPanel;
-    WebScrollPane yAxisSelectScrollPane;
     JComboBox intervalComboBox;
     JComboBox xAxisSelectComboBox;
-    private JButton startSelectButton;
-    private JRadioButton startDateRadioButton;
-    private JRadioButton startOrbitRadioButton;
-    private JSpinner startOrbitSpinner;
-    private WebDateField startOrbitCalendar;
-    WebCheckBoxTree yAxisSelect;
+    JButton startSelectButton;
+    JRadioButton startDateRadioButton;
+    JRadioButton startOrbitRadioButton;
+    JSpinner startOrbitSpinner;
+    WebDateField startOrbitCalendar;
+    JList yAxisList;
+    JButton addYAxisButton;
+    JButton removeYAxisButton;
+    JButton upYAxisButton;
+    JButton downYAxisButton;
 
     private void createUIComponents() {
-        yAxisSelect = new WebCheckBoxTree();
-        yAxisSelectScrollPane = new WebScrollPane(yAxisSelect);
     }
 }
