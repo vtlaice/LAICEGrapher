@@ -36,11 +36,7 @@ object MainFormManager: Manager<MainForm>(MainForm()) {
         }
 
         with (form.yAxisList) {
-            model = DefaultListModel<Any>().apply {
-                for (i in 0..100) {
-                    addElement(i.toString())
-                }
-            }
+            model = DefaultListModel<Any>()
         }
 
         EventBindings.register(form) //Setup the event bindings

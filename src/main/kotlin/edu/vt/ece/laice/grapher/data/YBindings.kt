@@ -37,7 +37,7 @@ object YBindings {
         val topNode = DefaultMutableTreeNode("LAICE Y Data") //Create a level 0 node for all data
         Tables.values().forEach { //Iterate the available tables
             if (!it.excluded) {
-                val tableNode = DefaultMutableTreeNode(it.prettyName) //Create a level 1 node for the table
+                val tableNode = DefaultMutableTreeNode(it) //Create a level 1 node for the table
                 getBindingsByTable(it).forEach {
                     //Iterate the bindings for the table
                     val subNode = DefaultMutableTreeNode(it) //Create a level 2 sub node for the binding

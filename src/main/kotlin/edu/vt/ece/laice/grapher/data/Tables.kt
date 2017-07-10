@@ -8,5 +8,7 @@ enum class Tables(val tableName: String, val prettyName: String, val excluded: B
     LIIB("", "LIIB"),
     SNEUPI("sensor_sneupi_data", "SNeuPI"),
     LINAS("sensor_linas_data", "LINAS"),
-    RPA("sensor_rpa_data", "RPA"),
+    RPA("sensor_rpa_data", "RPA");
+
+    override fun toString() = prettyName
 }

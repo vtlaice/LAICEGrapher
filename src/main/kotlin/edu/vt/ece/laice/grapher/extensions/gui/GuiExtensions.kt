@@ -37,7 +37,7 @@ fun JList<Any>.removeSelected() {
     var firstSelected = selectionModel.minSelectionIndex
     val lastSelected = selectionModel.maxSelectionIndex
     val model = model as? DefaultListModel
-    if (model != null) {
+    if (model != null && firstSelected >=0 && lastSelected >= 0) {
         model.removeRange(firstSelected, lastSelected)
         if (model.size != 0) {
             if (firstSelected == model.size) {

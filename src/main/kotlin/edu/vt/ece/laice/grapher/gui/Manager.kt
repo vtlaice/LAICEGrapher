@@ -1,5 +1,6 @@
 package edu.vt.ece.laice.grapher.gui
 
+import java.awt.Component
 import java.awt.Container
 import java.awt.Dimension
 import javax.swing.JFrame
@@ -10,12 +11,13 @@ import javax.swing.SwingUtilities
  */
 abstract class Manager<out T>(protected val form: T) {
     protected val frame = JFrame()
-    fun init(title: String, closeAction: Int = JFrame.DISPOSE_ON_CLOSE) {
+    fun init(title: String, closeAction: Int = JFrame.DISPOSE_ON_CLOSE, relativeTo: Component? = null) {
         frame.minimumSize = Dimension(100, 100)
         frame.title = title
         frame.defaultCloseOperation = closeAction
         initTasks()
         frame.pack()
+        frame.setLocationRelativeTo(relativeTo)
         postInit()
     }
 

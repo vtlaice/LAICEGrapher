@@ -1,7 +1,9 @@
 package edu.vt.ece.laice.grapher.gui.main
 
 import edu.vt.ece.laice.grapher.Constants
+import edu.vt.ece.laice.grapher.chart.MainChart
 import edu.vt.ece.laice.grapher.extensions.gui.*
+import edu.vt.ece.laice.grapher.gui.fieldselector.FieldSelectorBuilder
 import javax.swing.DefaultListModel
 
 /**
@@ -38,6 +40,16 @@ object EventBindings {
             upYAxisButton.addActionListener { yAxisList.moveSelectedUp() }
             downYAxisButton.addActionListener { yAxisList.moveSelectedDown() }
             removeYAxisButton.addActionListener { yAxisList.removeSelected() }
+            addYAxisButton.addActionListener { FieldSelectorBuilder().apply {
+                val model = yAxisList.model as DefaultListModel
+                init("Add Items", relativeTo = addYAxisButton)
+                show()
+                getItems().forEach {
+                    if (!model.contains(it)) {
+                        model.addElement(it)
+                    }
+                }
+            } }
 
         }
     }

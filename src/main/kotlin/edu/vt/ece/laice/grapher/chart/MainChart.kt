@@ -16,8 +16,9 @@ import org.jfree.data.xy.XYSeriesCollection
 object MainChart {
     private val plot = CombinedDomainXYPlot()
     private val chart = JFreeChart(plot)
+    private val panel = ChartPanel(chart)
 
-    fun getChartPanel() = ChartPanel(chart)
+    fun getChartPanel() = panel
 
     fun setXAxis(name: String) {
         plot.domainAxis.label = name
@@ -27,5 +28,9 @@ object MainChart {
         val dataset = XYSeriesCollection(series)
         val subPlot = XYPlot(dataset, null, NumberAxis(rangeAxis), DefaultXYItemRenderer())
         plot.add(subPlot)
+    }
+
+    fun autoRange() {
+        panel.restoreAutoBounds()
     }
 }

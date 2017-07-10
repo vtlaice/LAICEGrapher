@@ -65,7 +65,7 @@ fun main(args: Array<String>) {
     val data2 = XYSeries("Series 2")
     val data3 = XYSeries("Series 3")
 
-
+/*
     for (i in 0..30) {
         data.add(i, Random().nextInt(100))
     }
@@ -77,12 +77,14 @@ fun main(args: Array<String>) {
     for (i in 0..30) {
         data3.add(i, Random().nextInt(100))
     }
+    */
 
     MainChart.setXAxis("X Test")
 
     MainChart.addNewPlot(data, "Y Test 1")
     MainChart.addNewPlot(data2, "Y Test 2")
     MainChart.addNewPlot(data3, "Y Test 3")
+
 
 
 }
