@@ -11,7 +11,9 @@ object XBindings {
 
     init {
         with (bindings) {
-            add(SingleBinding(Tables.X, "test", "Test", "UNIT"))
+            add(SingleBinding(Tables.X, "epoch", "Satellite Time", "UNIT"))
+            add(SingleBinding(Tables.X, "mlt", "Magnetic Local Time", "UNIT"))
+            add(SingleBinding(Tables.X, "ut", "Universal Time", "UNIT"))
         }
     }
 

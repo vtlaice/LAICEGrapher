@@ -5,7 +5,7 @@ package edu.vt.ece.laice.grapher.data
  */
 
 data class Interval(val name: String, val multiplier: Double) {
-    val points = if (multiplier < 0) 1 else (5400 * multiplier).toInt()
+    val points = if (multiplier < 0) 0 else (5400 * multiplier).toInt()
 
     override fun toString() = name
 }

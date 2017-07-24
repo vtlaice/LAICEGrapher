@@ -81,9 +81,9 @@ fun main(args: Array<String>) {
 
     MainChart.setXAxis("X Test")
 
-    MainChart.addNewPlot(data, "Y Test 1")
-    MainChart.addNewPlot(data2, "Y Test 2")
-    MainChart.addNewPlot(data3, "Y Test 3")
+    //MainChart.addNewPlot(data, "Y Test 1")
+    //MainChart.addNewPlot(data2, "Y Test 2")
+    //MainChart.addNewPlot(data3, "Y Test 3")
 
 
 

@@ -15,22 +15,26 @@ fun DefaultListModel<Any>.swap(index1: Int, index2: Int) {
     this.set(index2, item1)
 }
 
-fun JList<Any>.moveSelectedUp() {
+fun JList<Any>.moveSelectedUp(): Boolean {
     val index = selectedIndex
     if (index != 0) {
         (model as? DefaultListModel)?.swap(index, index - 1)
         selectedIndex = index - 1
         ensureIndexIsVisible(index - 1)
+        return true
     }
+    return false
 }
 
-fun JList<Any>.moveSelectedDown() {
+fun JList<Any>.moveSelectedDown(): Boolean {
     val index = selectedIndex
     if (index != model.size - 1) {
         (model as? DefaultListModel)?.swap(index, index + 1)
         selectedIndex = index + 1
         ensureIndexIsVisible(index + 1)
+        return true
     }
+    return false
 }
 
 fun JList<Any>.removeSelected() {
@@ -48,3 +52,5 @@ fun JList<Any>.removeSelected() {
     }
 
 }
+
+fun <T> JList<Any>.getItems(): List<T> = (0 until model.size).map { model.getElementAt(it) as T }

@@ -24,13 +24,11 @@ object MainChart {
         plot.domainAxis.label = name
     }
 
-    fun addNewPlot(series: XYSeries, rangeAxis: String) {
-        val dataset = XYSeriesCollection(series)
-        val subPlot = XYPlot(dataset, null, NumberAxis(rangeAxis), DefaultXYItemRenderer())
-        plot.add(subPlot)
-    }
-
     fun autoRange() {
         panel.restoreAutoBounds()
+    }
+
+    fun regen() {
+
     }
 }

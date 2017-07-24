@@ -10,7 +10,7 @@ import kotlin.properties.Delegates
 object TaskSink {
     data class Task(val name: String) {
         var progress: Int by Delegates.observable(0) {
-            _, _, new ->
+            _, _, _ ->
             TaskSink.taskUpdate()
         }
 
