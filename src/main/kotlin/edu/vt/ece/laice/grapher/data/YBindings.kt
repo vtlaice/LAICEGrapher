@@ -14,13 +14,15 @@ object YBindings {
             //ADD BINDINGS HERE
             add(BindingGroup(Tables.RPA, "currentSamples", "Current Samples", "Amps").apply {
                 for (i in 1..64) {
-                    add("currentSample${i}_Amps", "Current Sample $i")
+                    val hidden = i != 1
+                    add("currentSample${i}_Amps", "Current Sample $i", hidden)
                 }
             })
 
             add(BindingGroup(Tables.RPA, "voltageSamples", "Voltage Samples", "Volts").apply {
                 for (i in 1..64) {
-                    add("voltageSample${i}_Volts", "Voltage Sample $i")
+                    val hidden = i != 1
+                    add("voltageSample${i}_Volts", "Voltage Sample $i", hidden)
                 }
             })
         }
@@ -44,7 +46,9 @@ object YBindings {
                     if (it is BindingGroup) { //If the active binding is a group
                         it.bindings.forEach {
                             //Iterate the group
-                            subNode.add(DefaultMutableTreeNode(it)) //Create and add a level 3 sub node for the binding in the group
+                            if (!it.hidden) {
+                                subNode.add(DefaultMutableTreeNode(it)) //Create and add a level 3 sub node for the binding in the group
+                            }
                         }
                     }
                     tableNode.add(subNode) //Add the level 2 node to the level 1 node

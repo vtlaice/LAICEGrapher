@@ -1,12 +1,11 @@
 package edu.vt.ece.laice.grapher.data
 
 import java.sql.*
-import java.util.*
 
 /**
  * Created by cameronearle on 6/26/17.
  */
-object Database {
+class MySQLDatabase : Datasource {
     lateinit var connection: Connection
     private val lock = Any()
 
@@ -14,7 +13,7 @@ object Database {
         connection = DriverManager.getConnection("jdbc:mysql://$server:3306/$database?useSSL=false", username, password)
     }
 
-    private fun findOrbitID(orbit: Long): Int {
+    @Synchronized override fun getOrbitID(orbit: Int): Int {
         val query = "SELECT _id FROM LIIB WHERE orbitNumber = $orbit"
         val statement = connection.prepareStatement(query)
         var result: ResultSet? = null
@@ -33,18 +32,7 @@ object Database {
         }
     }
 
-    fun request(bindingsList: List<SingleBinding>, startOrbit: Long, interval: Interval): DatabaseResponse {
-        val startPoint = findOrbitID(startOrbit)
-        if (startPoint == -1) {
-            return DatabaseResponse(false, reason = "Invalid data range")
-        }
-        val endPoint = startPoint + interval.points
-
-        return request(bindingsList, startPoint, endPoint)
-    }
-
-
-    @Synchronized fun request(bindingsList: List<SingleBinding>, startID: Int, endID: Int): DatabaseResponse {
+    @Synchronized override fun request(bindingsList: List<SingleBinding>, startID: Int, endID: Int): DatabaseResponse {
         if (bindingsList.isEmpty()) {
             return DatabaseResponse(false, reason = "Empty request set")
         }
@@ -55,7 +43,7 @@ object Database {
             sorted[it.table]!!.add(it)
         }
 
-        val masterMap = hashMapOf<SingleBinding, List<Double>>()
+        val masterMap = LinkedHashMap<SingleBinding, ArrayList<Double>>()
 
         sorted.forEach {
             val table = it.key

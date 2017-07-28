@@ -5,7 +5,7 @@ package edu.vt.ece.laice.grapher.data
  */
 class BindingGroup(override val table: Tables, override val internalName: String, override val prettyName: String, override val units: String) : Binding() {
     val bindings = arrayListOf<SingleBinding>()
-    fun add(name: String, prettyName: String) {
-        bindings.add(SingleBinding(table, name, prettyName, units, this))
+    fun add(name: String, prettyName: String, hidden: Boolean = false) {
+        bindings.add(SingleBinding(table, name, prettyName, units, this, hidden))
     }
 }

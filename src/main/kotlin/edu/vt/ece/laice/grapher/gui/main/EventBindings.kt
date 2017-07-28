@@ -44,15 +44,15 @@ object EventBindings {
 
             upYAxisButton.addActionListener {
                 yAxisList.moveSelectedUp()
-                ActiveDataManager.updateBindings(yAxisList.getItems())
+                ActiveDataManager.setYBindings(yAxisList.getItems())
             }
             downYAxisButton.addActionListener {
                 yAxisList.moveSelectedDown()
-                ActiveDataManager.updateBindings(yAxisList.getItems())
+                ActiveDataManager.setYBindings(yAxisList.getItems())
             }
             removeYAxisButton.addActionListener {
                 yAxisList.removeSelected()
-                ActiveDataManager.updateBindings(yAxisList.getItems())
+                ActiveDataManager.setYBindings(yAxisList.getItems())
             }
 
             addYAxisButton.addActionListener {
@@ -63,15 +63,19 @@ object EventBindings {
                     val items = getItems()
                     var addedItems = 0
                     items.forEach {
-                        if (!model.contains(it)) {
+                        if (!model.contains(it) && model.size < Constants.MAX_STACKED_COUNT) {
                             model.addElement(it)
                             addedItems++
                         }
                     }
                     if (addedItems > 0) {
-                        ActiveDataManager.updateBindings(yAxisList.getItems())
+                        ActiveDataManager.setYBindings(yAxisList.getItems())
                     }
                 }
+            }
+
+            xAxisSelectComboBox.addActionListener {
+                ActiveDataManager.setXBinding(xAxisSelectComboBox.selectedItem as SingleBinding)
             }
 
             startSelectButton.addActionListener {

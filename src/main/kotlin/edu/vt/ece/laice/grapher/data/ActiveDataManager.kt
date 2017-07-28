@@ -8,9 +8,14 @@ import java.util.*
  */
 object ActiveDataManager {
     var activeStartOrbit = 0; private set
-    var activeInterval = 0; private set
+    var activeInterval = 5400; private set
+    var activeXBinding = XBindings.getBinding("epoch"); private set
+    val activeYBindings = LinkedList<SingleBinding>()
 
-    fun updateOrbitRange(startOrbit: Int, interval: Interval) {
+    val activeData = DatapointList()
+
+
+    @Synchronized fun updateOrbitRange(startOrbit: Int, interval: Interval) {
         if (activeStartOrbit != startOrbit || activeInterval != interval.points) {
             activeStartOrbit = startOrbit
             activeInterval = interval.points
@@ -19,29 +24,32 @@ object ActiveDataManager {
         }
     }
 
-    val activeData = LinkedHashMap<Binding, LinkedList<Pair<Long, Double>>>()
+    @Synchronized fun setYBindings(bindings: List<SingleBinding>) {
+        if (activeData.toList() != bindings) {
+            activeYBindings.clear()
+            activeYBindings.addAll(bindings)
+            GeneralExecutor.submit { recalculate() }
+        }
+    }
 
-    fun updateBindings(bindings: List<Binding>) {
-        val activeBindings = activeData.keys.toList()
-        //First we'll remove any old bindings
-        activeBindings.forEach {
-            if (!bindings.contains(it)) {
-                activeData.remove(it)
+
+    @Synchronized fun setXBinding(binding: SingleBinding) {
+        if (binding.table == Tables.X) {
+            if (activeXBinding != binding) {
+                activeXBinding = binding
+                GeneralExecutor.submit { recalculate() }
             }
         }
-        //Now we'll add new bindings
-        bindings.forEach {
-            if (!activeBindings.contains(it)) {
-                activeData.put(it, LinkedList())
-            }
+    }
+
+    private val chartHooks = arrayListOf<(DatapointList) -> Unit>()
+    fun addChartHook(action: (DatapointList) -> Unit) {
+        chartHooks.add(action)
+    }
+    private fun callAllHooks() {
+        chartHooks.forEach {
+            it(activeData)
         }
-        //Now that the lists are equivalent, we can sort the map
-        val oldData = activeData.toMap()
-        activeData.clear()
-        bindings.forEach {
-            activeData.put(it, oldData[it]!!)
-        }
-        println(activeData)
     }
 
     @Synchronized private fun recalculate() {
@@ -50,12 +58,30 @@ object ActiveDataManager {
         times of each binding.  If they match the active start and end times, they do not require modification.
         If they do not, we drill in and see which field doesn't match.  We then request the needed data and fill it in.
          */
-        activeData.forEach {
-            binding, value ->
-            //var currentStartTime = activeStartTime
-            //var currentEndTime = activeEndTime
+        val startID = Database.getOrbitID(activeStartOrbit)
+        val endID = startID + activeInterval
+        val xResponse = Database.request(listOf(activeXBinding), startID, endID)
+        val yResponse = Database.request(activeYBindings, startID, endID)
+        if (xResponse.successful && yResponse.successful) {
+            activeData.clear()
+
+            val xValues = xResponse.data[activeXBinding]!!
+            val yValues = yResponse.data
+
+            for (i in 0 until xValues.size) {
+                val currentYValues = LinkedHashMap<SingleBinding, Double>()
+                yValues.forEach {
+                    binding, values ->
+                    currentYValues.put(binding, values[i])
+                }
+                activeData.add(Datapoint(activeXBinding to xValues[i], currentYValues))
+            }
+            println(activeData.getValues())
+            callAllHooks()
         }
     }
+
+
 
 
 }
