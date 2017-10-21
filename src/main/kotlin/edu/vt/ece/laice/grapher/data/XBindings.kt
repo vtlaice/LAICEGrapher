@@ -14,6 +14,7 @@ object XBindings {
             add(SingleBinding(Tables.X, "epoch", "Satellite Time", "UNIT"))
             add(SingleBinding(Tables.X, "mlt", "Magnetic Local Time", "UNIT"))
             add(SingleBinding(Tables.X, "ut", "Universal Time", "UNIT"))
+            add(SingleBinding(Tables.X, "id", "Packet ID", "UNIT"))
         }
     }
 
