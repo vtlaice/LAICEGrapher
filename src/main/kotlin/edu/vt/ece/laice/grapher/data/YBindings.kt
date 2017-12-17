@@ -25,6 +25,11 @@ object YBindings {
                     add("voltageSample${i}_Volts", "Voltage Sample $i", hidden)
                 }
             })
+
+            add(SingleBinding(Tables.LIIB, "pos_5VD_Monitor_LB_Volts", "5V Monitor", "Volts"))
+            add(SingleBinding(Tables.LIIB, "pos_3_3V_Monitor_LB_Volts", "3V Monitor", "Volts"))
+            add(SingleBinding(Tables.SNEUPI, "mcp_CurrentSample1_AMPS", "Current Sample 1", "Amps"))
+            add(SingleBinding(Tables.LINAS, "collectorCurrent_nA", "Collector Current", "nA"))
         }
     }
 

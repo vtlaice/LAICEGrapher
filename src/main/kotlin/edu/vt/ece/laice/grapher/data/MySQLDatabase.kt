@@ -10,17 +10,21 @@ class MySQLDatabase : Datasource {
     private val lock = Any()
 
     fun connect(database: String, username: String, password: String, server: String) {
-        connection = DriverManager.getConnection("jdbc:mysql://$server:3306/$database?useSSL=false", username, password)
+        connection = DriverManager.getConnection("jdbc:mysql://$server:3306/$database?useSSL=false&serverTimezone=UTC", username, password)
     }
 
     @Synchronized override fun getOrbitID(orbit: Int): Int {
-        val query = "SELECT _id FROM LIIB WHERE orbitNumber = $orbit"
+        val query = "SELECT _id FROM ${Tables.X.tableName} WHERE orbitNumber = $orbit"
         val statement = connection.prepareStatement(query)
         var result: ResultSet? = null
         try {
             result = statement.executeQuery()
             if (result != null) {
-                return result.getInt(0)
+                if (result.next()) {
+                    return result.getInt("_id")
+                } else {
+                    return -1
+                }
             } else {
                 return -1
             }

@@ -2,6 +2,7 @@ package edu.vt.ece.laice.grapher.gui.main
 
 import com.alee.extended.date.WebDateField
 import com.intellij.uiDesigner.core.GridConstraints
+import edu.vt.ece.laice.grapher.chart.Chart
 import edu.vt.ece.laice.grapher.chart.MainChart
 import edu.vt.ece.laice.grapher.data.IntervalBindings
 import edu.vt.ece.laice.grapher.data.XBindings
@@ -19,6 +20,11 @@ import javax.swing.tree.TreeSelectionModel
  */
 
 object MainFormManager: Manager<MainForm>(MainForm()) {
+    fun setChart(chart: Chart) {
+        form.graphingViewport.removeAll()
+        form.graphingViewport.add(car)
+    }
+
     override fun initTasks() {
         setMainPanel(form.mainPanel)
 

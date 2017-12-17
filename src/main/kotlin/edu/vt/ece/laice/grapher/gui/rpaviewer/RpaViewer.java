@@ -7,8 +7,6 @@ public class RpaViewer extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
-    private JSlider slider1;
-    private JSpinner spinner1;
 
     public RpaViewer() {
         setContentPane(contentPane);

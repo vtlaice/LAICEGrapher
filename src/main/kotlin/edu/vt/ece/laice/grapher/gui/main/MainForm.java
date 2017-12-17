@@ -36,6 +36,8 @@ public class MainForm {
     JButton downYAxisButton;
 
     private void createUIComponents() {
+        startOrbitSpinner = new JSpinner();
+        startOrbitSpinner.setValue(1);
     }
 
     {

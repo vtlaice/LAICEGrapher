@@ -2,6 +2,8 @@ package edu.vt.ece.laice.grapher
 
 import com.alee.laf.WebLookAndFeel
 import edu.vt.ece.laice.grapher.chart.MainChart
+import edu.vt.ece.laice.grapher.data.Database
+import edu.vt.ece.laice.grapher.data.MySQLDatabase
 import edu.vt.ece.laice.grapher.gui.main.MainFormManager
 import edu.vt.ece.laice.grapher.gui.splash.SplashFormManager
 import edu.vt.ece.laice.grapher.sink.TaskSink
@@ -35,16 +37,13 @@ fun main(args: Array<String>) {
     val dbTask = TaskSink.createTask("Connecting to server")
 
     try {
-        //MySQLDatabase.connect("laice", "laice", "LaiceTest123*", "192.168.21.131")
+        (Database as MySQLDatabase).connect("moc_vt_clone", "root", args[0], args[1])
         dbTask.progress = 100
-        lafTask.finish()
+        dbTask.finish()
     } catch (e: SQLException) {
-        JOptionPane.showMessageDialog(JFrame(), "Error connecting to database!", "Error", JOptionPane.ERROR_MESSAGE)
-        System.exit(1)
+        JOptionPane.showMessageDialog(JFrame(), "Error connecting to database (${e.errorCode})\n${e.localizedMessage}", "Error", JOptionPane.ERROR_MESSAGE)
+        //System.exit(1)
     }
-
-    dbTask.progress = 100
-    lafTask.finish()
 
     MainFormManager.init("LAICE Grapher", JFrame.EXIT_ON_CLOSE)
     MainFormManager.show()
@@ -53,30 +52,6 @@ fun main(args: Array<String>) {
 
     println("done")
     SplashFormManager.hide()
-
-
-    val data = XYSeries("Series 1")
-    val data2 = XYSeries("Series 2")
-    val data3 = XYSeries("Series 3")
-
-/*
-    for (i in 0..30) {
-        data.add(i, Random().nextInt(100))
-    }
-
-    for (i in 0..30) {
-        data2.add(i, Random().nextInt(100))
-    }
-
-    for (i in 0..30) {
-        data3.add(i, Random().nextInt(100))
-    }
-    */
-
-    //MainChart.addNewPlot(data, "Y Test 1")
-    //MainChart.addNewPlot(data2, "Y Test 2")
-    //MainChart.addNewPlot(data3, "Y Test 3")
-
 
 
 }

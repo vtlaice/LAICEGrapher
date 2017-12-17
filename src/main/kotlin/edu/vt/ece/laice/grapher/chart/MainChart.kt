@@ -54,7 +54,7 @@ object MainChart {
         val plots = arrayListOf<XYPlot>()
         datasets.forEach {
             binding, dataset ->
-            plots.add(XYPlot(dataset, null, NumberAxis(binding.prettyName), DefaultXYItemRenderer()).apply {
+            plots.add(XYPlot(dataset, null, NumberAxis("${binding.prettyName} (${binding.units})"), DefaultXYItemRenderer()).apply {
                 renderer.setPaint(Color.BLACK)
                 renderer.setShape(ShapeUtilities.createDiamond(Constants.POINT_SIZE))
             })
@@ -77,7 +77,5 @@ object MainChart {
 
     fun getChartPanel() = panel
 
-    fun autoRange() {
-        panel.restoreAutoBounds()
-    }
+    fun autoRange() = panel.restoreAutoBounds()
 }
