@@ -22,7 +22,6 @@ import javax.swing.tree.TreeSelectionModel
 object MainFormManager: Manager<MainForm>(MainForm()) {
     fun setChart(chart: Chart) {
         form.graphingViewport.removeAll()
-        form.graphingViewport.add(car)
     }
 
     override fun initTasks() {

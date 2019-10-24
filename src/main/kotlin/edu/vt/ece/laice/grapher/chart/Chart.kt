@@ -17,5 +17,4 @@ import org.jfree.chart.ChartPanel
 
 class Chart() {
     private val chartPanel = ChartPanel(null)
-    private val controlsPanel
 }

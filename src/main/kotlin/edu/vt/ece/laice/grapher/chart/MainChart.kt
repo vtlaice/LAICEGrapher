@@ -45,7 +45,7 @@ object MainChart {
         val datasets = LinkedHashMap<SingleBinding, XYSeriesCollection>()
         values.forEach {
             binding, values ->
-            val series = XYSeries(binding.prettyName)
+            val series = XYSeries(binding.prettyName, false, true)
             values.forEach {
                 series.add(it.first, it.second)
             }
@@ -67,7 +67,7 @@ object MainChart {
     init {
         ActiveDataManager.addChartHook {
             clearPlots()
-            plot.domainAxis = NumberAxis(it.getXBinding()!!.prettyName)
+            plot.domainAxis = NumberAxis("${it.getXBinding()!!.prettyName} (${it.getXBinding()!!.units}")
             val newPlots = buildPlots(it)
             newPlots.forEach {
                 plot.add(it)

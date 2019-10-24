@@ -12,24 +12,11 @@ object YBindings {
     init {
         with (bindings) {
             //ADD BINDINGS HERE
-            add(BindingGroup(Tables.RPA, "currentSamples", "Current Samples", "Amps").apply {
-                for (i in 1..64) {
-                    val hidden = i != 1
-                    add("currentSample${i}_Amps", "Current Sample $i", hidden)
-                }
-            })
-
-            add(BindingGroup(Tables.RPA, "voltageSamples", "Voltage Samples", "Volts").apply {
-                for (i in 1..64) {
-                    val hidden = i != 1
-                    add("voltageSample${i}_Volts", "Voltage Sample $i", hidden)
-                }
-            })
-
-            add(SingleBinding(Tables.LIIB, "pos_5VD_Monitor_LB_Volts", "5V Monitor", "Volts"))
-            add(SingleBinding(Tables.LIIB, "pos_3_3V_Monitor_LB_Volts", "3V Monitor", "Volts"))
-            add(SingleBinding(Tables.SNEUPI, "mcp_CurrentSample1_AMPS", "Current Sample 1", "Amps"))
-            add(SingleBinding(Tables.LINAS, "collectorCurrent_nA", "Collector Current", "nA"))
+            add(SingleBinding(Tables.X, "lat", "Latitude", "Deg"))
+            add(SingleBinding(Tables.X, "lon", "Longitude", "Deg"))
+            add(SingleBinding(Tables.X, "alt", "Altitude", "km"))
+            add(SingleBinding(Tables.Y, "rpa_1", "RPA Current Sample 1", "nA"))
+            add(SingleBinding(Tables.Y, "ng_current", "Neutral Gauge Current", "nA"))
         }
     }
 

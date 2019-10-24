@@ -16,6 +16,7 @@ object IntervalBindings {
             add(Interval(".1 Orbit", .1))
             add(Interval(".05 Orbit", .05))
             add(Interval(".01 Orbit", .01))
+            add(Interval("Sample Interval", 0.0222222222))
 
             add(Interval("Single Packet", -1.0))
         }

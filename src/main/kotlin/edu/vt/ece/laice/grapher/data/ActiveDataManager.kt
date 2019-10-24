@@ -9,7 +9,7 @@ import java.util.*
 object ActiveDataManager {
     var activeStartOrbit = 1; private set
     var activeInterval = 5400; private set
-    var activeXBinding = XBindings.getBinding("epoch"); private set
+    var activeXBinding = XBindings.getBinding("ut"); private set
     val activeYBindings = LinkedList<SingleBinding>()
     var activeMode = DataMode.GENERAL; private set
     var lock = false; private set

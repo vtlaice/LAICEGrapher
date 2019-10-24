@@ -11,10 +11,11 @@ object XBindings {
 
     init {
         with (bindings) {
-            add(SingleBinding(Tables.X, "epoch", "Satellite Time", "UNIT"))
-            add(SingleBinding(Tables.X, "mlt", "Magnetic Local Time", "UNIT"))
-            add(SingleBinding(Tables.X, "ut", "Universal Time", "UNIT"))
-            add(SingleBinding(Tables.X, "_id", "Packet ID", "UNIT"))
+            add(SingleBinding(Tables.X, "lat", "Latitude", "deg"))
+            add(SingleBinding(Tables.X, "lon", "Longitude", "deg"))
+            add(SingleBinding(Tables.X, "alt", "Altitude", "km"))
+            add(SingleBinding(Tables.X, "ut", "Universal Time", "Hours"))
+            add(SingleBinding(Tables.X, "_id", "Packet ID", "ID"))
         }
     }
 
